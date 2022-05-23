@@ -163,6 +163,8 @@ namespace Unity.FPS.Game
 
         private Queue<Rigidbody> m_PhysicalAmmoPool;
 
+        public ObjectPooler objectPooler;
+
         void Awake()
         {
             m_CurrentAmmo = MaxAmmo;
@@ -446,6 +448,9 @@ namespace Unity.FPS.Game
             // spawn all bullets with random direction
             for (int i = 0; i < bulletsPerShotFinal; i++)
             {
+                objectPooler = GameObject.FindGameObjectWithTag("ObjectPooler").GetComponent<ObjectPooler>();
+                objectPooler.GetBullet();
+
                 Vector3 shotDirection = GetShotDirectionWithinSpread(WeaponMuzzle);
                 ProjectileBase newProjectile = Instantiate(ProjectilePrefab, WeaponMuzzle.position,
                     Quaternion.LookRotation(shotDirection));
