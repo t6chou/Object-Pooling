@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.Events;
 
 namespace Unity.FPS.Game
-{
+{ 
     public enum WeaponShootType
     {
         Manual,
@@ -156,14 +156,13 @@ namespace Unity.FPS.Game
         public int GetCurrentAmmo() => Mathf.FloorToInt(m_CurrentAmmo);
 
         AudioSource m_ShootAudioSource;
+        ObjectPoolingManager m_ObjectPoolingManager;
 
         public bool IsReloading { get; private set; }
 
         const string k_AnimAttackParameter = "Attack";
 
-        private Queue<Rigidbody> m_PhysicalAmmoPool;
-
-        public ObjectPooler objectPooler;
+        private Queue<Rigidbody> m_PhysicalAmmoPool;       
 
         void Awake()
         {
@@ -448,13 +447,14 @@ namespace Unity.FPS.Game
             // spawn all bullets with random direction
             for (int i = 0; i < bulletsPerShotFinal; i++)
             {
-                objectPooler = GameObject.FindGameObjectWithTag("ObjectPooler").GetComponent<ObjectPooler>();
-                objectPooler.GetBullet();
-
                 Vector3 shotDirection = GetShotDirectionWithinSpread(WeaponMuzzle);
                 ProjectileBase newProjectile = Instantiate(ProjectilePrefab, WeaponMuzzle.position,
                     Quaternion.LookRotation(shotDirection));
                 newProjectile.Shoot(this);
+
+                // GameObject bulletObject = ObjectPoolingManager.Instance.GetBullet();
+                // bulletObject.transform.position = WeaponMuzzle.position;
+                // bulletObject.transform.forward = playerCamera.transform.forward;
             }
 
             // muzzle flash
