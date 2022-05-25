@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.Events;
 
 namespace Unity.FPS.Game
-{ 
+{
     public enum WeaponShootType
     {
         Manual,
@@ -156,13 +156,12 @@ namespace Unity.FPS.Game
         public int GetCurrentAmmo() => Mathf.FloorToInt(m_CurrentAmmo);
 
         AudioSource m_ShootAudioSource;
-        ObjectPoolingManager m_ObjectPoolingManager;
 
         public bool IsReloading { get; private set; }
 
         const string k_AnimAttackParameter = "Attack";
 
-        private Queue<Rigidbody> m_PhysicalAmmoPool;       
+        private Queue<Rigidbody> m_PhysicalAmmoPool;
 
         void Awake()
         {
@@ -452,9 +451,9 @@ namespace Unity.FPS.Game
                 //     Quaternion.LookRotation(shotDirection));
                 // newProjectile.Shoot(this);
 
-                GameObject bulletObject = ObjectPoolingManager.Instance.GetBullet();
-                bulletObject.transform.position = WeaponMuzzle.position;
-                bulletObject.transform.forward = transform.forward;
+                GameObject projectileObject = ObjectPooler.Instance.GetProjectile();
+                projectileObject.transform.position = WeaponMuzzle.position;
+                projectileObject.transform.forward = transform.forward;
             }
 
             // muzzle flash

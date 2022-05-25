@@ -2,9 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ObjectPoolingStandard : MonoBehaviour
+public class ObjectPoolStandard : MonoBehaviour
 {
-    public float bulletSpeed = 10f;
+    public float bulletSpeed = 20f;
     public float bulletDuration = 2f;
 
     private float timer;
